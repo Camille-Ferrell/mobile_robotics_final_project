@@ -4,6 +4,7 @@ from utils import Map
 from rrt_star import rrt_star
 from informed_rrt_star import informed_rrt_star
 from hybrid_rrt_star import hybrid_rrt_star
+from rrt_star_n import rrt_star_n
 
 
 # ═════════════════════════════════════════════════════════════════════════
@@ -126,6 +127,7 @@ def run_narrow_passage_experiment(passage_widths, n_trials, params, goal_radius=
     """
     algorithms = {
         'RRT*':          rrt_star,
+        'RRT*-N':        rrt_star_n,
         'Informed RRT*': informed_rrt_star,
         'Hybrid RRT*':   hybrid_rrt_star,
     }
@@ -162,6 +164,7 @@ def run_clutter_experiment(densities, n_trials, params, goal_radius=0.05):
     """
     algorithms = {
         'RRT*':          rrt_star,
+        'RRT*-N':        rrt_star_n,
         'Informed RRT*': informed_rrt_star,
         'Hybrid RRT*':   hybrid_rrt_star,
     }
