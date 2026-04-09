@@ -125,4 +125,4 @@ All metrics reported as **median ± IQR** over 50 independent trials.
 
 ## Reference
 
-S. Ganesan, B. Ramalingam, and R. E. Mohan, "A hybrid sampling-based RRT* path planning algorithm for autonomous mobile robot navigation," *Expert Systems with Applications*, vol. 258, p. 125206, 2024. doi: [10.1016/j.eswa.2024.125206](https://doi.org/10.1016/j.eswa.2024.125206)
+S. Ganesan, B. Ramalingam, and R. E. Mohan, "A hybrid sampling-based RRT* path planning algorithm for autonomous mobile robot navigation," *Expert Systems with Applications*, vol. 258, p. 125206, 2024. doi: [10.1016/j.eswa.2024.125206][(https://doi.org/10.1016/j.eswa.2024.125206)](https://www.sciencedirect.com/science/article/pii/S0957417424020736?via%3Dihub)
