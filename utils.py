@@ -39,16 +39,32 @@ def point_in_obs(q, obstacles):
 def collision_free(q1, q2, map_: Map, n_checks=20):
     """True if the straight-line segment q1->q2 is obstacle-free.
 
-    Uses uniform point sampling along the segment — simple and effective
-    for axis-aligned rectangular obstacles at typical planning scales.
+    Vectorized: interpolates all n_checks points along the segment at
+    once and checks all obstacles simultaneously using numpy broadcasting,
+    avoiding Python loops entirely.
     """
     if map_.obstacles.shape[0] == 0:
         return True
-    for t in np.linspace(0, 1, n_checks):
-        q = q1 + t * (q2 - q1)
-        if point_in_obs(q, map_.obstacles):
-            return False
-    return True
+
+    # (n_checks, 2) — all interpolated points along segment
+    t      = np.linspace(0, 1, n_checks)[:, None]   # (n_checks, 1)
+    points = q1 + t * (q2 - q1)                      # (n_checks, 2)
+
+    obs = map_.obstacles                              # (n_obs, 4)
+    px  = points[:, 0][:, None]                      # (n_checks, 1)
+    py  = points[:, 1][:, None]                      # (n_checks, 1)
+
+    ox  = obs[:, 0]                                  # (n_obs,)
+    oy  = obs[:, 1]
+    ow  = obs[:, 2]
+    oh  = obs[:, 3]
+
+    # broadcast: (n_checks, n_obs) boolean arrays
+    in_x = (px >= ox) & (px <= ox + ow)
+    in_y = (py >= oy) & (py <= oy + oh)
+
+    # any point inside any obstacle → collision
+    return not np.any(in_x & in_y)
 
 
 # ── Tree primitives ───────────────────────────────────────────────────────
